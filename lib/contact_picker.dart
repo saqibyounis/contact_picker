@@ -16,21 +16,18 @@ class ContactPicker {
   /// Brings up a dialog where the user can select a contact from his/her
   /// address book.
   ///
-  /// Returns the [Contact] selected by the user, or `null` if the user canceled
+  /// Returns the [Contact] selected by the user, or null if the user canceled
   /// out of the dialog.
   Future<Contact> selectContact() async {
     final Map<dynamic, dynamic> result =
         await _channel.invokeMethod('selectContact');
-    if (result == null) {
-      return null;
-    }
     return new Contact.fromMap(result);
   }
 }
 
 /// Represents a contact selected by the user.
 class Contact {
-  Contact({this.fullName, this.phoneNumber});
+  Contact({required this.fullName, required this.phoneNumber});
 
   factory Contact.fromMap(Map<dynamic, dynamic> map) => new Contact(
       fullName: map['fullName'],
@@ -48,7 +45,7 @@ class Contact {
 
 /// Represents a phone number selected by the user.
 class PhoneNumber {
-  PhoneNumber({this.number, this.label});
+  PhoneNumber({required this.number, required this.label});
 
   factory PhoneNumber.fromMap(Map<dynamic, dynamic> map) =>
       new PhoneNumber(number: map['number'], label: map['label']);
